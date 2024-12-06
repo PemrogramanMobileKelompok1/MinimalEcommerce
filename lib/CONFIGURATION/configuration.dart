@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 class Warna {
   /* static var BG = Color(0xFFf4f1e1); */
-  static var BG = Color(0xFFFFFFFF);
+  static var BG = Color(0xFFE9EEFF);
   static var Primary = Color(0xFFD0A175);
   static var PrimaryDark = Color(0xFFAD8764);
   static var PrimaryHalf = Color.fromARGB(255, 215, 183, 153);

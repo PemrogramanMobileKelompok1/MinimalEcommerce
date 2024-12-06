@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CASH FLOW',
+      title: 'Minimal E-Commerce',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
       debugShowCheckedModeBanner: false,
       home: const MainPage(),
@@ -174,9 +174,9 @@ class _MainPageState extends State<MainPage> {
           });
         },
         items: const <Widget>[
-          Icon(TablerIcons.notes, size: 30), // Catatan
-          Icon(TablerIcons.chart_pie, size: 30), // Grafi
-          Icon(TablerIcons.report, size: 30), // Laporan
+          Icon(TablerIcons.home, size: 30), // Catatan
+          Icon(TablerIcons.heart, size: 30), // Grafi
+          Icon(TablerIcons.file_text, size: 30), // Laporan
           Icon(TablerIcons.user, size: 30), // Profile
         ],
       ),
