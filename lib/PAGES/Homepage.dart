@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -11,26 +11,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Contoh data statis untuk pencarian
-  static final List<String> dataList = [
-    "Apple",
-    "Banana",
-    "Cherry",
-    "Date",
-    "Elderberry",
-    "Fig",
-    "Grape",
-    "Honeydew"
-  ];
-
-  final FocusNode _focusNode = FocusNode();
-
-  List<String> _getSuggestions(String query) {
-    return dataList
-        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-  }
-
   /* MENU */
   final List<Map<String, dynamic>> menuItems = const [
     {'imagePath': 'assets/images/electronic.png', 'title': 'Electronic'},
@@ -112,422 +92,368 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: const Drawer(),
-      body: GestureDetector(
-        onTap: () {
-          _focusNode.unfocus();
-        },
-        child: ListView(
-          padding: const EdgeInsets.all(10),
-          children: [
-            /* SEARCHBAR */
-            TypeAheadField<String>(
-              textFieldConfiguration: TextFieldConfiguration(
-                focusNode: _focusNode,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: 'Find what you need...',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                    fontFamily: 'Nunito',
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 25.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: Icon(TablerIcons.search, color: Warna.TextBold),
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      _focusNode.unfocus();
-                    },
-                    child: Icon(TablerIcons.x, color: Warna.TextNormal),
-                  ),
-                ),
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: [
+          /* SEARCHBAR */
+          /* SEARCHBAR */
+
+          const SizedBox(height: 10),
+          /* LOKASI */
+          _buildLocationRow(),
+          const SizedBox(height: 10),
+          /* MENU */
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, // 4 item per baris
+                mainAxisSpacing: 4, // Jarak vertikal antar item lebih kecil
+                crossAxisSpacing: 8, // Jarak horizontal antar item lebih kecil
+                childAspectRatio: 1.1, // Rasio proporsional lebih vertikal
               ),
-              suggestionsCallback: (query) => _getSuggestions(query),
-              itemBuilder: (context, suggestion) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade300, width: 1),
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      suggestion,
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
+              itemCount: menuItems.length,
+              itemBuilder: (context, index) {
+                final menuItem = menuItems[index];
+                return GestureDetector(
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text('You selected ${menuItem['title']}')),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade50,
+                          shape: BoxShape.circle, // Bentuk bulat
+                          border: Border.all(color: Colors.grey.shade200),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          menuItem['imagePath'], // Path gambar
+                          width: 40, // Gambar lebih kecil
+                          height: 40,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      const SizedBox(
+                          height: 4), // Spasi antara circle dan title
+                      Text(
+                        menuItem['title'],
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Nunito',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 );
               },
-              onSuggestionSelected: (suggestion) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('You selected: $suggestion')),
-                );
-                _focusNode.unfocus();
-              },
             ),
-            const SizedBox(height: 10),
-            /* LOKASI */
-            _buildLocationRow(),
-            const SizedBox(height: 10),
-            /* MENU */
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+          ),
+          /* MENU */
+          SizedBox(
+            height: 10,
+          ),
+          /* BANNER */
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            height: 180, // Tinggi card
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              image: const DecorationImage(
+                image: AssetImage(
+                    'assets/images/banner1.jpg'), // Gambar background
+                fit: BoxFit.cover,
               ),
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, // 4 item per baris
-                  mainAxisSpacing: 4, // Jarak vertikal antar item lebih kecil
-                  crossAxisSpacing:
-                      8, // Jarak horizontal antar item lebih kecil
-                  childAspectRatio: 1.1, // Rasio proporsional lebih vertikal
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4), // Posisi bayangan
                 ),
-                itemCount: menuItems.length,
-                itemBuilder: (context, index) {
-                  final menuItem = menuItems[index];
-                  return GestureDetector(
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text('You selected ${menuItem['title']}')),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade50,
-                            shape: BoxShape.circle, // Bentuk bulat
-                            border: Border.all(color: Colors.grey.shade200),
-                          ),
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            menuItem['imagePath'], // Path gambar
-                            width: 40, // Gambar lebih kecil
-                            height: 40,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        const SizedBox(
-                            height: 4), // Spasi antara circle dan title
-                        Text(
-                          menuItem['title'],
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Nunito',
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+              ],
             ),
-            /* MENU */
-            SizedBox(
-              height: 10,
-            ),
-            /* BANNER */
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              height: 180, // Tinggi card
+            child: Container(
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
-                  image: AssetImage(
-                      'assets/images/banner1.jpg'), // Gambar background
-                  fit: BoxFit.cover,
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black.withOpacity(0.7),
+                    Colors.black.withOpacity(0.3),
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4), // Posisi bayangan
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '12.12 Flash Sale!', // Title
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Up to 100% off on selected items.', // Description
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.8),
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'Nunito',
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Navigating to Shop...')),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Warna.Primary, // Warna tombol
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Tombol rounded
+                      ),
+                    ),
+                    child: const Text(
+                      'Shop Now',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'CampanaScript',
+                          fontSize: 26),
+                    ),
                   ),
                 ],
               ),
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(0.3),
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+          ),
+          /* BANNER */
+          SizedBox(
+            height: 10,
+          ),
+          /* PRODUCT */
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Title Section
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '12.12 Flash Sale!', // Title
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Nunito',
-                      ),
+                    // Title & Countdown
+                    Row(
+                      children: [
+                        Text(
+                          "Flash Sale",
+                          style: TextStyle(
+                              fontFamily: 'CampanaScript',
+                              fontSize: 30,
+                              color: Warna.TextBold,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Warna.Primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: CountdownTimer(
+                            endTime: endTime,
+                            textStyle: const TextStyle(
+                                color: Colors.white, fontSize: 14),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Up to 100% off on selected items.', // Description
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Nunito',
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
+                    // See All Button
+                    TextButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Navigating to Shop...')),
+                          const SnackBar(
+                              content: Text("Navigating to See All...")),
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Warna.Primary, // Warna tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(20), // Tombol rounded
-                        ),
-                      ),
-                      child: const Text(
-                        'Shop Now',
+                      child: Text(
+                        "See All",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'CampanaScript',
-                            fontSize: 26),
+                          fontSize: 14,
+                          color: Warna.TextBold,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Nunito',
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            /* BANNER */
-            SizedBox(
-              height: 10,
-            ),
-            /* PRODUCT */
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Title Section
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Title & Countdown
-                      Row(
-                        children: [
-                          Text(
-                            "Flash Sale",
-                            style: TextStyle(
-                                fontFamily: 'CampanaScript',
-                                fontSize: 30,
-                                color: Warna.TextBold,
-                                fontWeight: FontWeight.bold),
+              // Product GridView
+              GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 item per baris
+                  mainAxisSpacing: 10, // Jarak vertikal antar item
+                  crossAxisSpacing: 10, // Jarak horizontal antar item
+                  childAspectRatio:
+                      0.8, // Proporsi lebar dan tinggi card (lebih tinggi)
+                ),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return GestureDetector(
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text('You selected ${product['title']}')),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            blurRadius: 5,
+                            offset: const Offset(0, 4),
                           ),
-                          const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Warna.Primary,
-                              borderRadius: BorderRadius.circular(12),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Product Image with Discount Badge
+                          Stack(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 160,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.network(
+                                      product['image'],
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // Discount Badge
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    product['discount'],
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 10),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          // Product Title
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              product['title'],
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Nunito',
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            child: CountdownTimer(
-                              endTime: endTime,
-                              textStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
+                          ),
+                          // Product Description
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              product['description'],
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'Nunito',
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const Spacer(),
+                          // Product Rating
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                RatingBarIndicator(
+                                  rating: product['rating'],
+                                  itemBuilder: (context, _) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 16.0,
+                                  direction: Axis.horizontal,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  product['rating'].toString(),
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                      // See All Button
-                      TextButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text("Navigating to See All...")),
-                          );
-                        },
-                        child: Text(
-                          "See All",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Warna.TextBold,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Nunito',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Product GridView
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // 2 item per baris
-                    mainAxisSpacing: 10, // Jarak vertikal antar item
-                    crossAxisSpacing: 10, // Jarak horizontal antar item
-                    childAspectRatio:
-                        0.8, // Proporsi lebar dan tinggi card (lebih tinggi)
-                  ),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    final product = products[index];
-                    return GestureDetector(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content:
-                                  Text('You selected ${product['title']}')),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 5,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Product Image with Discount Badge
-                            Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 160,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.network(
-                                        product['image'],
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // Discount Badge
-                                Positioned(
-                                  top: 10,
-                                  right: 10,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Text(
-                                      product['discount'],
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 10),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            // Product Title
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                product['title'],
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Nunito',
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            // Product Description
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                product['description'],
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.normal,
-                                  fontFamily: 'Nunito',
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const Spacer(),
-                            // Product Rating
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  RatingBarIndicator(
-                                    rating: product['rating'],
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    itemCount: 5,
-                                    itemSize: 16.0,
-                                    direction: Axis.horizontal,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    product['rating'].toString(),
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-            /* PRODUCT */
-          ],
-        ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
+          /* PRODUCT */
+        ],
       ),
     );
   }
