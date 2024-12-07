@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'Chart.dart';
 
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -86,10 +87,19 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         actions: [
-          _buildActionIcon(TablerIcons.shopping_bag),
+          _buildActionIcon(
+            TablerIcons.shopping_bag,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartPage()),
+              );
+            },
+          ),
           _buildActionIcon(TablerIcons.bell),
           const SizedBox(width: 5),
         ],
+
       ),
       drawer: const Drawer(),
       body: ListView(
@@ -460,19 +470,25 @@ class _HomePageState extends State<HomePage> {
 }
 
 /* HELPER WIDGETS */
-Widget _buildActionIcon(IconData icon) {
-  return Container(
-    margin: const EdgeInsets.all(5),
-    padding: const EdgeInsets.all(5),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(9),
-      border:
-          Border.all(color: const Color.fromARGB(221, 151, 151, 151), width: 1),
+Widget _buildActionIcon(IconData icon, {VoidCallback? onTap}) {
+  return InkWell(
+    onTap: onTap, // Aksi saat ikon ditekan
+    child: Container(
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(9),
+        border: Border.all(
+          color: const Color.fromARGB(221, 151, 151, 151),
+          width: 1,
+        ),
+      ),
+      child: Icon(icon, color: Warna.Primary),
     ),
-    child: Icon(icon, color: Warna.Primary),
   );
 }
+
 
 Widget _buildLocationRow() {
   return Row(
