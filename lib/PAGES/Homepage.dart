@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:minimalecommerce/PAGES/search_page.dart';
 import 'Chart.dart';
 
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
@@ -107,30 +108,40 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(10),
         children: [
           /* SEARCHBAR */
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                Icon(TablerIcons.search),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Temukan Kebutuhan Anda...',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'Nunito',
-                      color: const Color.fromARGB(255, 157, 157, 157)),
-                )
-              ],
-            ),
+GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SearchPage()), // Navigasi ke SearchPage
+    );
+  },
+  child: Container(
+    padding: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Row(
+      children: [
+        Icon(TablerIcons.search, color: Colors.grey),
+        SizedBox(
+          width: 5,
+        ),
+        Text(
+          'Temukan Kebutuhan Anda...',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            fontFamily: 'Nunito',
+            color: const Color.fromARGB(255, 157, 157, 157),
           ),
-          /* SEARCHBAR */
+        ),
+      ],
+    ),
+  ),
+),
+/* SEARCHBAR */
+
 
           const SizedBox(height: 10),
           /* LOKASI */
