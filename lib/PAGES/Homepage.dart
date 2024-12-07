@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     {'imagePath': 'assets/images/electronic.png', 'title': 'Electronic'},
     {'imagePath': 'assets/images/food.png', 'title': 'Food & Drink'},
     {'imagePath': 'assets/images/accesories.png', 'title': 'Accesories'},
-    {'imagePath': 'assets/images/makeup.png', 'title': 'Makup'},
+    {'imagePath': 'assets/images/makeup.png', 'title': 'Makeup'},
     {'imagePath': 'assets/images/furniture.png', 'title': 'Furniture'},
     {'imagePath': 'assets/images/fashion.png', 'title': 'Fashion'},
     {'imagePath': 'assets/images/health.png', 'title': 'Health'},
@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
       "image":
           "https://cdnpro.eraspace.com/media/catalog/product/i/p/iphone_14_blue_1.jpg",
       "title": "Iphone 14 Pro Max",
-      "description": "This is a great product.",
+      "description":
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio voluptatibus dolorem ab accusamus magnam magni numquam similique mollitia minima, fugiat quibusdam perferendis at delectus aperiam vitae iure corrupti, nihil consequatur?",
       "price": "\$1600",
       "rating": 4.5,
       "discount": "10% OFF"
@@ -96,11 +97,35 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(10),
         children: [
           /* SEARCHBAR */
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Icon(TablerIcons.search),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Temukan Kebutuhan Anda...',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'Nunito',
+                      color: const Color.fromARGB(255, 157, 157, 157)),
+                )
+              ],
+            ),
+          ),
           /* SEARCHBAR */
 
           const SizedBox(height: 10),
           /* LOKASI */
           _buildLocationRow(),
+          /* LOKASI */
           const SizedBox(height: 10),
           /* MENU */
           Container(
@@ -114,10 +139,10 @@ class _HomePageState extends State<HomePage> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, // 4 item per baris
-                mainAxisSpacing: 4, // Jarak vertikal antar item lebih kecil
-                crossAxisSpacing: 8, // Jarak horizontal antar item lebih kecil
-                childAspectRatio: 1.1, // Rasio proporsional lebih vertikal
+                crossAxisCount: 4, 
+                mainAxisSpacing: 4, 
+                crossAxisSpacing: 8, 
+                childAspectRatio: 1, 
               ),
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
@@ -319,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSpacing: 10, // Jarak vertikal antar item
                   crossAxisSpacing: 10, // Jarak horizontal antar item
                   childAspectRatio:
-                      0.8, // Proporsi lebar dan tinggi card (lebih tinggi)
+                      0.7, // Proporsi lebar dan tinggi card (lebih tinggi)
                 ),
                 itemCount: products.length,
                 itemBuilder: (context, index) {

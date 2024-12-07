@@ -173,11 +173,27 @@ class _MainPageState extends State<MainPage> {
             _currentIndex = index; // Change the page when an item is tapped
           });
         },
-        items: const <Widget>[
-          Icon(TablerIcons.home, size: 30), // Catatan
-          Icon(TablerIcons.heart, size: 30), // Grafi
-          Icon(TablerIcons.file_text, size: 30), // Laporan
-          Icon(TablerIcons.user, size: 30), // Profile
+        items: <Widget>[
+          Icon(
+            TablerIcons.home,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Catatan
+          Icon(
+            TablerIcons.heart,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Grafi
+          Icon(
+            TablerIcons.file_text,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Laporan
+          Icon(
+            TablerIcons.user,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Profile
         ],
       ),
     );
