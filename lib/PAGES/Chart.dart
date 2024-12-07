@@ -172,7 +172,8 @@ class _CartPageState extends State<CartPage> {
                         vertical: 12,
                       ),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.blue.withOpacity(0.1) : null,
+                        color:
+                            isSelected ? Warna.Primary.withOpacity(0.1) : null,
                         border: Border(
                           bottom: BorderSide(color: Colors.grey[200]!),
                         ),
@@ -199,14 +200,15 @@ class _CartPageState extends State<CartPage> {
                               fontWeight: isSelected
                                   ? FontWeight.bold
                                   : FontWeight.normal,
-                              color: isSelected ? Colors.blue : Colors.black87,
+                              color:
+                                  isSelected ? Warna.TextBold : Colors.black87,
                             ),
                           ),
                           const Spacer(),
                           if (isSelected)
-                            const Icon(
+                            Icon(
                               Icons.check_circle,
-                              color: Colors.blue,
+                              color: Warna.Primary,
                             ),
                         ],
                       ),
@@ -269,7 +271,7 @@ class _CartPageState extends State<CartPage> {
           vertical: 8,
         ),
         decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(0.1),
+          color: Warna.Primary.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -278,13 +280,13 @@ class _CartPageState extends State<CartPage> {
             Icon(
               variantType == 'color' ? Icons.palette : Icons.straighten,
               size: 16,
-              color: Colors.blue[700],
+              color: Warna.Primary.withOpacity(0.9),
             ),
             const SizedBox(width: 6),
             Text(
               '${variantType.capitalize()}: ${item.variants?[variantType] ?? 'Select'}',
               style: TextStyle(
-                color: Colors.blue[700],
+                color: Warna.TextBold,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
@@ -293,7 +295,7 @@ class _CartPageState extends State<CartPage> {
             Icon(
               Icons.keyboard_arrow_down,
               size: 16,
-              color: Colors.blue[700],
+              color: Warna.Primary.withOpacity(0.9),
             ),
           ],
         ),
@@ -316,7 +318,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Warna.BG,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -326,19 +328,21 @@ class _CartPageState extends State<CartPage> {
         ),
         title: Column(
           children: [
-            const Text(
+            Text(
               'My Cart',
               style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.w600,
+                fontSize: 28,
+                color: Warna.TextBold,
+                fontFamily: 'CampanaScript',
               ),
             ),
             Text(
               '${selectedItemCount} items selected',
               style: TextStyle(
-                color: Colors.grey[600],
+                color: Warna.TextNormal,
                 fontSize: 12,
                 fontWeight: FontWeight.normal,
+                fontFamily: 'Nunito',
               ),
             ),
           ],
@@ -388,6 +392,13 @@ class _CartPageState extends State<CartPage> {
                               SizedBox(
                                 width: 24,
                                 child: Checkbox(
+                                  fillColor: WidgetStatePropertyAll(
+                                    Warna.PrimaryDark,
+                                  ),
+                                  hoverColor: Warna.Primary,
+                                  overlayColor: WidgetStatePropertyAll(
+                                    Warna.Primary.withOpacity(0.3),
+                                  ),
                                   value: item.isSelected,
                                   onChanged: (bool? value) {
                                     setState(() {
@@ -426,8 +437,9 @@ class _CartPageState extends State<CartPage> {
                                             item.name,
                                             style: const TextStyle(
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.bold,
                                               height: 1.2,
+                                              fontFamily: 'Nunito',
                                             ),
                                           ),
                                         ),
@@ -474,6 +486,7 @@ class _CartPageState extends State<CartPage> {
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
+                                        fontFamily: 'Nunito',
                                       ),
                                     ),
                                     if (item.originalPrice != null)
@@ -607,7 +620,8 @@ class _CartPageState extends State<CartPage> {
                       const Text(
                         'Select All',
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Nunito',
                         ),
                       ),
                       const Spacer(),
@@ -625,10 +639,11 @@ class _CartPageState extends State<CartPage> {
                           const SizedBox(height: 2),
                           Text(
                             currencyFormatter.format(totalPrice),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: Warna.TextBold,
+                              fontFamily: 'Nunito',
                             ),
                           ),
                         ],
@@ -643,7 +658,7 @@ class _CartPageState extends State<CartPage> {
                         // Handle checkout
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Warna.Primary,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(
                           vertical: 16,
@@ -656,8 +671,9 @@ class _CartPageState extends State<CartPage> {
                       child: Text(
                         'Checkout (${selectedItemCount} items)',
                         style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Nunito',
                         ),
                       ),
                     ),
