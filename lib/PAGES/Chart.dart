@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
+import 'package:minimalecommerce/PAGES/CheckOut.dart';
 
 class CartItem {
   final String name;
@@ -655,6 +656,12 @@ class _CartPageState extends State<CartPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CheckoutPage()), // Navigasi ke SearchPage`
+                          );
                         // Handle checkout
                       },
                       style: ElevatedButton.styleFrom(
