@@ -1,53 +1,58 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SearchPage(), // Set SearchPage as the home page for testing
-    );
-  }
-}
+import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Warna.BG,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Warna.TextBold),
           onPressed: () {
-            Navigator.pop(context); // Go back to the previous page
+            Navigator.pop(context);
           },
         ),
-        title: TextField(
-          decoration: InputDecoration(
-            hintText: 'Find you needed...',
-            prefixIcon: Icon(Icons.search, color: Colors.grey),
-            filled: true,
-            fillColor: Colors.grey[200],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
-            ),
+        title: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.shade200),
+          ),
+          child: Row(
+            children: [
+              Icon(TablerIcons.search, color: Colors.grey),
+              SizedBox(width: 10),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Temukan Kebutuhan Anda...',
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'Nunito',
+                      color: Color.fromARGB(255, 157, 157, 157),
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.filter_list, color: Colors.black),
-            onPressed: () {},
+          _buildActionIcon(
+            TablerIcons.filter,
+            onTap: () {},
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,24 +60,34 @@ class SearchPage extends StatelessWidget {
               // Popular Search Section
               Text(
                 'Popular Search',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Nunito',
+                  color: Warna.TextBold,
+                ),
               ),
               SizedBox(height: 10),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
                 children: [
-                  _popularSearchButton('Fossil Watch'),
-                  _popularSearchButton('Iphone 14 Pro'),
-                  _popularSearchButton('Gaming Chair'),
-                  _popularSearchButton('New Balance'),
+                  _buildPopularSearchButton('Fossil Watch'),
+                  _buildPopularSearchButton('Iphone 14 Pro'),
+                  _buildPopularSearchButton('Gaming Chair'),
+                  _buildPopularSearchButton('New Balance'),
                 ],
               ),
               SizedBox(height: 20),
-              // Recommend for You Section
+              // Recommended for You Section
               Text(
-                'Recommend for You',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                'Recommended for You',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Nunito',
+                  color: Warna.TextBold,
+                ),
               ),
               SizedBox(height: 10),
               GridView.count(
@@ -83,7 +98,7 @@ class SearchPage extends StatelessWidget {
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.7,
                 children: [
-                  _recommendCard(
+                  _buildRecommendedCard(
                     imageUrl: 'https://d2bzx2vuetkzse.cloudfront.net/fit-in/0x450/images_without_background/c2be66c9-3f30-4881-8584-2ab48f0875e5.png',
                     title: 'Uniqlo Basic T-shirt Oversized White',
                     price: 'IDR 200.000',
@@ -91,8 +106,8 @@ class SearchPage extends StatelessWidget {
                     rating: '4.9',
                     sold: '518',
                   ),
-                  _recommendCard(
-                    imageUrl: 'https://www.footlocker.id/media/catalog/product/0/3/03-NEW-BALANCE-FFSTYNEWA-NEWBBW550BT-Beige.jpg',
+                  _buildRecommendedCard(
+                    imageUrl: 'https://cms.brnstc.de/product_images/2244x3072p/cpro/media/images/product/23/12/100158298211000_0_1702372465607.webp',
                     title: 'New Balance 550 Men\'s Sneakers Shoes - Beige',
                     price: 'IDR 1.792.650',
                     location: 'Malang',
@@ -100,18 +115,16 @@ class SearchPage extends StatelessWidget {
                     sold: '814',
                     discount: '15% off',
                   ),
-                  _recommendCard(
-                    imageUrl:
-                        'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-139353329/apple_apple_watch_ultra_2_with_alpine_loop_full22_mxuxwco9.jpeg', // Replace with actual image URL
+                  _buildRecommendedCard(
+                    imageUrl: 'https://m.media-amazon.com/images/I/81k6R2uh1JL._AC_SL1500_.jpg',
                     title: 'Apple Watch Ultra 2 with Alpine Loop',
                     price: 'IDR 9.999.000',
                     location: '',
                     rating: '4.8',
                     sold: '320',
                   ),
-                  _recommendCard(
-                    imageUrl:
-                        'https://images.tokopedia.net/img/cache/700/OJWluG/2024/5/21/49c30f19-cf95-4ac4-ac86-db32e8539e22.jpg', // Replace with actual image URL
+                  _buildRecommendedCard(
+                    imageUrl: 'https://images.tokopedia.net/img/cache/700/OJWluG/2024/5/21/49c30f19-cf95-4ac4-ac86-db32e8539e22.jpg',
                     title: 'Nike Dri-FIT Academy Woven',
                     price: 'IDR 600.000',
                     location: '',
@@ -127,20 +140,50 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  Widget _popularSearchButton(String title) {
-    return OutlinedButton(
-      onPressed: () {},
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(color: Colors.grey[300]!),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+  Widget _buildActionIcon(IconData icon, {VoidCallback? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(9),
+          border: Border.all(
+            color: const Color.fromARGB(221, 151, 151, 151),
+            width: 1,
+          ),
         ),
+        child: Icon(icon, color: Warna.Primary),
       ),
-      child: Text(title, style: TextStyle(color: Colors.black)),
     );
   }
 
-  Widget _recommendCard({
+  Widget _buildPopularSearchButton(String title) {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: Colors.grey.shade300),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: Warna.TextBold,
+          fontFamily: 'Nunito',
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRecommendedCard({
     required String imageUrl,
     required String title,
     required String price,
@@ -152,12 +195,12 @@ class SearchPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 5,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -166,56 +209,107 @@ class SearchPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.network(imageUrl, height: 100, width: double.infinity, fit: BoxFit.cover),
+              Container(
+                width: double.infinity,
+                height: 160,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
               if (discount != null)
                 Positioned(
-                  top: 8,
-                  right: 8,
+                  top: 10,
+                  right: 10,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.red,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       discount,
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                      style: TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
                 ),
             ],
           ),
+          SizedBox(height: 8),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, maxLines: 2, overflow: TextOverflow.ellipsis),
-                SizedBox(height: 4),
-                Text(price, style: TextStyle(fontWeight: FontWeight.bold)),
-                if (location.isNotEmpty) ...[
-                  SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(Icons.location_on, size: 14, color: Colors.grey),
-                      SizedBox(width: 4),
-                      Text(location, style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    ],
-                  ),
-                ],
-                if (rating != null && sold != null) ...[
-                  SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(Icons.star, size: 14, color: Colors.orange),
-                      SizedBox(width: 4),
-                      Text('$rating · $sold sold', style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    ],
-                  ),
-                ],
-              ],
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Nunito',
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              price,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Nunito',
+                color: Warna.Primary,
+              ),
+            ),
+          ),
+          if (location.isNotEmpty) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Icon(TablerIcons.map_pin, size: 14, color: Colors.grey),
+                  SizedBox(width: 4),
+                  Text(
+                    location,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontFamily: 'Nunito',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          if (rating != null && sold != null) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Icon(Icons.star, size: 14, color: Colors.amber),
+                  SizedBox(width: 4),
+                  Text(
+                    '$rating · $sold sold',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontFamily: 'Nunito',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          SizedBox(height: 8),
         ],
       ),
     );
