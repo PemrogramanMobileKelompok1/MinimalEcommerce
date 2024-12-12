@@ -84,7 +84,7 @@ class SearchPage extends StatelessWidget {
                 childAspectRatio: 0.7,
                 children: [
                   _recommendCard(
-                    imageUrl: 'https://via.placeholder.com/150',
+                    imageUrl: 'https://d2bzx2vuetkzse.cloudfront.net/fit-in/0x450/images_without_background/c2be66c9-3f30-4881-8584-2ab48f0875e5.png',
                     title: 'Uniqlo Basic T-shirt Oversized White',
                     price: 'IDR 200.000',
                     location: 'Surabaya',
@@ -92,7 +92,7 @@ class SearchPage extends StatelessWidget {
                     sold: '518',
                   ),
                   _recommendCard(
-                    imageUrl: 'https://via.placeholder.com/150',
+                    imageUrl: 'https://www.footlocker.id/media/catalog/product/0/3/03-NEW-BALANCE-FFSTYNEWA-NEWBBW550BT-Beige.jpg',
                     title: 'New Balance 550 Men\'s Sneakers Shoes - Beige',
                     price: 'IDR 1.792.650',
                     location: 'Malang',
@@ -102,7 +102,7 @@ class SearchPage extends StatelessWidget {
                   ),
                   _recommendCard(
                     imageUrl:
-                        'https://via.placeholder.com/150', // Replace with actual image URL
+                        'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-139353329/apple_apple_watch_ultra_2_with_alpine_loop_full22_mxuxwco9.jpeg', // Replace with actual image URL
                     title: 'Apple Watch Ultra 2 with Alpine Loop',
                     price: 'IDR 9.999.000',
                     location: '',
@@ -111,7 +111,7 @@ class SearchPage extends StatelessWidget {
                   ),
                   _recommendCard(
                     imageUrl:
-                        'https://via.placeholder.com/150', // Replace with actual image URL
+                        'https://images.tokopedia.net/img/cache/700/OJWluG/2024/5/21/49c30f19-cf95-4ac4-ac86-db32e8539e22.jpg', // Replace with actual image URL
                     title: 'Nike Dri-FIT Academy Woven',
                     price: 'IDR 600.000',
                     location: '',
