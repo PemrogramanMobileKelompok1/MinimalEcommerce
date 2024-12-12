@@ -37,7 +37,7 @@ class TrackingDetailsPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                      image: NetworkImage('https://via.placeholder.com/150'),
+                      image: AssetImage('assets/images/ipad.jpeg'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -88,7 +88,8 @@ class TrackingDetailsPage extends StatelessWidget {
             SizedBox(height: 8),
             ListTile(
               leading: Icon(Icons.location_on, color: Colors.orange),
-              title: Text('Guntur District, West Jakarta City, DKI Jakarta 12410 Indonesia'),
+              title: Text(
+                  'Guntur District, West Jakarta City, DKI Jakarta 12410 Indonesia'),
             ),
             ListTile(
               leading: Icon(Icons.home, color: Colors.orange),
