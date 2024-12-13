@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimalecommerce/CONFIGURATION/Component.dart';
 import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:minimalecommerce/PAGES/DetailProduct.dart';
@@ -75,35 +76,8 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: Warna.BG,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Text(
-              'Minimal E-commerce',
-              style: TextStyle(
-                fontFamily: 'CampanaScript',
-                fontSize: 30,
-                color: Warna.TextBold,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          _buildActionIcon(
-            TablerIcons.shopping_bag,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CartPage()),
-              );
-            },
-          ),
-          _buildActionIcon(TablerIcons.bell),
-          const SizedBox(width: 5),
-        ],
-      ),
-      drawer: const Drawer(),
+      appBar: AppBarComponent(),
+      drawer: DrawerComponent(),
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [

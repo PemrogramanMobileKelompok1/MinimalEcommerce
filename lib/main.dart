@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
 import 'package:minimalecommerce/PAGES/Homepage.dart';
+import 'package:minimalecommerce/PAGES/WishlistPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +37,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _userPages = [
     HomePage(), // Catatan
-    Placeholder(), // Laporan
+    WishlistPage(), // Laporan
     Placeholder(), // Laporan
     Placeholder(), // Profile
   ];
