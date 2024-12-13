@@ -660,7 +660,7 @@ class _CartPageState extends State<CartPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                CheckoutPage()), // Navigasi ke SearchPage`
+                                CheckoutScreen()), // Navigasi ke SearchPage`
                           );
                         // Handle checkout
                       },
