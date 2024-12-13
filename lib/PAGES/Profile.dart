@@ -13,8 +13,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-              backgroundColor: Warna.BG,
-
+      backgroundColor: Warna.BG,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -115,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Roan Atkinson',
+                          'Zulkifli',
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -306,7 +305,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       title: 'Logout',
                       subtitle: 'Sign out from your account',
                     ),
-
                   ],
                 ),
                 const SizedBox(height: 24),
