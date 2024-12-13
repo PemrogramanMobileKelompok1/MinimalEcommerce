@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'cart.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:minimalecommerce/CONFIGURATION/configuration.dart';
+import 'package:minimalecommerce/PAGES/Homepage.dart';
+import 'package:minimalecommerce/PAGES/Profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Minimal E-Commerce',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.brown,
       ),
       debugShowCheckedModeBanner: false,
       home: const MainPage(),
@@ -22,10 +25,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -34,25 +35,88 @@ class MyHomePage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  final List<Widget> _userPages = [
+    HomePage(), // Catatan
+    Placeholder(), // Laporan
+    Placeholder(), // Laporan
+    ProfileScreen(), // Profile
+  ];
+
+  List<Widget> _getPages() {
+    return _userPages;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Warna.TextBold, // Warna latar belakang header
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Pembukuan #1',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontFamily: 'Sunfish',
+                        ),
+                      ),
+                      Icon(
+                        TablerIcons.chevron_right,
+                        color: Warna.Primary,
+                      )
+                    ],
+                  ),
+                  Text(
+                    'Keperluan Pribadi',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontFamily: 'JackInput',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Backup Data :',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontFamily: 'JackInput',
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            color: Warna.Primary,
+                            borderRadius: BorderRadius.circular(9)),
+                        child: Text(
+                          'Active',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontFamily: 'JackInput',
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
             ListTile(
               leading: Icon(TablerIcons.shopping_cart),
@@ -97,15 +161,41 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CartPage()),
-          );
+      body: _getPages()[_currentIndex],
+      bottomNavigationBar: CurvedNavigationBar(
+        index: _currentIndex,
+        backgroundColor: Warna.BG,
+        color: Colors.white,
+        buttonBackgroundColor: Colors.white,
+        height: 65.0,
+        animationDuration: const Duration(milliseconds: 300),
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Change the page when an item is tapped
+          });
         },
-        tooltip: 'Go to Cart',
-        child: const Icon(Icons.shopping_cart),
+        items: <Widget>[
+          Icon(
+            TablerIcons.home,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Catatan
+          Icon(
+            TablerIcons.heart,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Grafi
+          Icon(
+            TablerIcons.file_text,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Laporan
+          Icon(
+            TablerIcons.user,
+            size: 30,
+            color: Warna.PrimaryDark,
+          ), // Profile
+        ],
       ),
     );
   }
