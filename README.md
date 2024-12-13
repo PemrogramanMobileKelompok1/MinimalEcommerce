@@ -14,8 +14,6 @@ Aplikasi e-commerce seluler ini menyediakan pengalaman belanja online yang ramah
 ## Screenshot
 
 ![App Screenshot 1](https://imagizer.imageshack.com/v2/239x425q70/r/924/o7wHeU.png) 
-![App Screenshot 2](screenshot2.png)
-![App Screenshot 3](screenshot3.png)
 
 ## Palet Warna
 | Warna             | Kode Hex                                                                |
@@ -29,7 +27,7 @@ Aplikasi e-commerce seluler ini menyediakan pengalaman belanja online yang ramah
 
 ## Cara Memulai
 
-1. Clone repositori ini: `git clone https://github.com/username/repo.git`
+1. Clone repositori ini: `git clone https://github.com/PemrogramanMobileKelompok1/MinimalEcommerce.git`
 2. Pasang dependensi: `flutter pub get`
 3. Jalankan aplikasi: `flutter run`
 
