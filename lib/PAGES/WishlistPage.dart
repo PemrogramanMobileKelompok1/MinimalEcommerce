@@ -677,6 +677,8 @@ class _WishlistPageState extends State<WishlistPage> {
       selectAll = cartItems.every((item) => item.isSelected);
     });
   }
+
+  CheckoutScreen() {}
 }
 
 extension StringExtension on String {
