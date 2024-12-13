@@ -11,12 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Minimal E-Commerce',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: const MainPage(),
     );
   }
 }
@@ -27,11 +28,11 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MainPageState extends State<MainPage> {
+  int _currentIndex = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -53,9 +54,45 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            ListTile(
+              leading: Icon(TablerIcons.shopping_cart),
+              title: Text(
+                'Rencana Belanja',
+                style: TextStyle(fontFamily: 'JackInput'),
+              ),
+              onTap: () {
+                // Navigasi ke halaman Rencana Belanja
+              },
+            ),
+            ListTile(
+              leading: Icon(TablerIcons.receipt),
+              title: Text(
+                'Rekap Keuangan',
+                style: TextStyle(fontFamily: 'JackInput'),
+              ),
+              onTap: () {
+                // Navigasi ke halaman Rekap Keuangan
+              },
+            ),
+            ListTile(
+              leading: Icon(TablerIcons.settings),
+              title: Text(
+                'Pengaturan',
+                style: TextStyle(fontFamily: 'JackInput'),
+              ),
+              onTap: () {
+                // Navigasi ke halaman Pengaturan
+              },
+            ),
+            ListTile(
+              leading: Icon(TablerIcons.database_export),
+              title: Text(
+                'Backup & Restore',
+                style: TextStyle(fontFamily: 'JackInput'),
+              ),
+              onTap: () {
+                // Navigasi ke halaman Backup & Restore
+              },
             ),
           ],
         ),
