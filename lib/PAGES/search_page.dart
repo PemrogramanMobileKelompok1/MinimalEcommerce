@@ -343,6 +343,7 @@ Widget _buildPopularSearchButton(String text) {
               ),
             ),
           ),
+          
           if (location.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
