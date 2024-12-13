@@ -40,7 +40,7 @@ Bagian Tim dalam README dapat ditampilkan dengan tabel, seperti ini:
 | [TissuGalon](https://github.com/TissuGalon) | Halaman HomePage |
 | [Zulkifli1409](https://github.com/Zulkifli1409) | Halaman Chart |
 | [Abdun12](https://github.com/Abdun12) | |  
-| [Afifahthahira](https://github.com/Afifahthahira) | |
+| [Afifahthahira](https://github.com/Afifahthahira) | Halaman SearchPage|
 | [PutriCahyana](https://github.com/PutriCahyana) | |
 | [indryakumala472@gmail.com](https://github.com/indryakumala472) | |
 
